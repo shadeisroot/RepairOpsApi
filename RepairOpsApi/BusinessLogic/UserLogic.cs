@@ -16,6 +16,37 @@ public class UserLogic : IUserLogic
         _passwordEncrypter = passwordEncrypter;
     }
 
+    public User RegisterUser(string username, string password)
+    {
+        if (string.IsNullOrEmpty(username))
+        {
+            throw new ArgumentException("Username cannot be null or empty.");
+        }
+
+        if (string.IsNullOrEmpty(password))
+        {
+            throw new ArgumentException("Password cannot be null or empty.");
+        }
+            
+        var existingUser = _userRepository.GetUserByUsername(username);
+        if (existingUser != null)
+        {
+            throw new ArgumentException("Username is already taken.");
+        }
+        
+        var (hash, salt) = _passwordEncrypter.EncryptPassword(password);
+        
+        var user = new User
+        {
+            username = username,
+            Hash = hash,
+            Salt = salt,
+        };
+        
+        _userRepository.RegisterUser(user);
+
+        return user;
+    }
     public User LoginUser(string username, string password)
     {
         if (string.IsNullOrEmpty(username))

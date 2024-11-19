@@ -6,4 +6,5 @@ public interface IUserRepository
 {
    
     User GetUserByUsername(string username);
+    void RegisterUser(User user);
 }

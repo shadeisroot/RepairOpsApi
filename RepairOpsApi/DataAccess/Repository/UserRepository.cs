@@ -19,4 +19,10 @@ public class UserRepository : IUserRepository
     {
         return _context.Users.FirstOrDefault(u => u.username == username);
     }
+    
+    public void RegisterUser(User user)
+    {
+        _context.Users.Add(user);
+        _context.SaveChanges();
+    }
 }
