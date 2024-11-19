@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RepairOpsApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d47d8e7e17ccb48dca50d9aa7dd1426717399d6f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e6101b3741124c2880c7b8d04f31868d0f4ea13c")]
 [assembly: System.Reflection.AssemblyProductAttribute("RepairOpsApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RepairOpsApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

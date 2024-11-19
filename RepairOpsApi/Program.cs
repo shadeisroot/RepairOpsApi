@@ -9,7 +9,7 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-
+        
         // Add services to the container.
         builder.Services.AddAuthorization();
         builder.Services.AddDbContext<RepairOpsApiContext>(options =>
@@ -20,6 +20,10 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        
+        builder.Services.AddScoped<ISagRepository, SagRepository>();
+        
+        builder.Services.AddControllers();
 
         var app = builder.Build();
 
@@ -33,7 +37,9 @@ public class Program
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
-
+        
+        app.MapControllers(); 
+        
         app.Run();
     }
 }
