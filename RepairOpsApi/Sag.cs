@@ -6,5 +6,4 @@ public class Sag
 {
     [Key]
     public Guid Sagsnummer { get; set; }
-   
 }
