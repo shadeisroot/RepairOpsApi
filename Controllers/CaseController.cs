@@ -63,7 +63,6 @@ public class CaseController : ControllerBase
         {
             return StatusCode(500, new { Message = "En fejl opstod under opdateringen af sagen." });
         }
-
         // 5. Returnér den opdaterede sag
         return Ok(new
         {

@@ -9,5 +9,4 @@ public interface ICaseRepository
     Task<Case> AddCaseAsync(Case caseItem);
     Task<bool> UpdateCaseAsync(Case caseItem);
     Task<bool> DeleteCaseAsync(Guid id);
-    
 }

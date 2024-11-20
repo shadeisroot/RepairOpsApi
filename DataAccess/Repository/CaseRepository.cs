@@ -12,7 +12,7 @@ public class CaseRepository : ICaseRepository
     {
         _context = context;
     }
-    
+
     public async Task<IEnumerable<Case>> GetAllCasesAsync()
     {
         return await _context.Cases.ToListAsync();
@@ -44,10 +44,10 @@ public class CaseRepository : ICaseRepository
             {
                 return false;
             }
+
             throw;
         }
     }
-
     
     public async Task<bool> DeleteCaseAsync(Guid id)
     {
@@ -58,4 +58,5 @@ public class CaseRepository : ICaseRepository
         await _context.SaveChangesAsync();
         return true;
     }
+
 }
