@@ -47,7 +47,6 @@ public class CaseController : ControllerBase
         {
             return NotFound(new { Message = $"Sagen med ID {id} blev ikke fundet." });
         }
-
         // 3. Opdater kun de felter, der er angivet
         existingCase.CustomerName = caseItem.CustomerName ?? existingCase.CustomerName;
         existingCase.EquipmentType = caseItem.EquipmentType ?? existingCase.EquipmentType;
