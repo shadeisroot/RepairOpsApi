@@ -70,7 +70,6 @@ public class CaseController : ControllerBase
             UpdatedCase = existingCase
         });
     }
-    
     [HttpDelete("{id}")] //slette (med id)
     public async Task<IActionResult> DeleteCase(Guid id)
     {
