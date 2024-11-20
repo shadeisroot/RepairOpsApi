@@ -65,6 +65,7 @@ public class CaseTest
         //Act
         var result = await _controller.PostCase(newCase);
         
+        
         //Assert
         var createdAtActionResult = result.Result as CreatedAtActionResult;
         Assert.IsNotNull(createdAtActionResult); //ikke null
