@@ -26,6 +26,8 @@ public class Program
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IUserLogic, UserLogic>();
         
+        builder.Services.AddScoped<ICaseRepository, CaseRepository>();
+        
         builder.Services.AddScoped<IPasswordEncrypter, PasswordEncrypter>();
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

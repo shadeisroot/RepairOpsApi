@@ -1,0 +1,7 @@
+C:\Users\damer\Documents\GitHub\RepairOpsApi\RepairOpsTest\bin\Debug\net8.0\CoverletSourceRootsMapping_RepairOpsTest
+C:\Users\damer\Documents\GitHub\RepairOpsApi\RepairOpsTest\obj\Debug\net8.0\RepairOpsTest.csproj.AssemblyReference.cache
+C:\Users\damer\Documents\GitHub\RepairOpsApi\RepairOpsTest\obj\Debug\net8.0\RepairOpsTest.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\damer\Documents\GitHub\RepairOpsApi\RepairOpsTest\obj\Debug\net8.0\RepairOpsTest.AssemblyInfoInputs.cache
+C:\Users\damer\Documents\GitHub\RepairOpsApi\RepairOpsTest\obj\Debug\net8.0\RepairOpsTest.AssemblyInfo.cs
+C:\Users\damer\Documents\GitHub\RepairOpsApi\RepairOpsTest\obj\Debug\net8.0\RepairOpsTest.csproj.CoreCompileInputs.cache
+C:\Users\damer\Documents\GitHub\RepairOpsApi\RepairOpsTest\obj\Debug\net8.0\RepairOpsTest.sourcelink.json
