@@ -49,7 +49,6 @@ public class CaseRepository : ICaseRepository
         }
     }
     
-    
     public async Task<bool> DeleteCaseAsync(Guid id)
     {
         var caseItem = await _context.Cases.FindAsync(id);
