@@ -32,8 +32,20 @@ public class CaseController : ControllerBase
     [HttpPost] //opretter en ny sag
     public async Task<ActionResult<Case>> PostCase(Case caseItem)
     {
-        var createdCase = await _repository.AddCaseAsync(caseItem);
-        return CreatedAtAction("GetCase", new { id = createdCase.Id }, createdCase);
+        try
+        {
+            if (caseItem == null)
+            {
+                return BadRequest(new { Message = "CaseItem kan ikke være null." });
+            }
+    
+            var createdCase = await _repository.AddCaseAsync(caseItem);
+            return CreatedAtAction("GetCase", new { id = createdCase.Id }, createdCase);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Message = "En intern serverfejl opstod", Error = ex.Message });
+        }
     }
     
     [HttpPut("{id}")] // Opdater en sag

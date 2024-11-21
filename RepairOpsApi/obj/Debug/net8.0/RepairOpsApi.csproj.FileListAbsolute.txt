@@ -337,3 +337,6 @@ C:\Users\damer\Documents\GitHub\RepairOpsApi\RepairOpsApi\obj\Debug\net8.0\refin
 C:\Users\damer\Documents\GitHub\RepairOpsApi\RepairOpsApi\obj\Debug\net8.0\RepairOpsApi.pdb
 C:\Users\damer\Documents\GitHub\RepairOpsApi\RepairOpsApi\obj\Debug\net8.0\RepairOpsApi.genruntimeconfig.cache
 C:\Users\damer\Documents\GitHub\RepairOpsApi\RepairOpsApi\obj\Debug\net8.0\ref\RepairOpsApi.dll
+C:\Users\damer\Documents\GitHub\RepairOpsApi\RepairOpsApi\bin\Debug\net8.0\Castle.Core.dll
+C:\Users\damer\Documents\GitHub\RepairOpsApi\RepairOpsApi\bin\Debug\net8.0\Moq.dll
+C:\Users\damer\Documents\GitHub\RepairOpsApi\RepairOpsApi\obj\Debug\net8.0\RepairOpsApi.sourcelink.json
