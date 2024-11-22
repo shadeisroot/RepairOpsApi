@@ -15,40 +15,44 @@ public class CaseController : ControllerBase
         _repository = repository;
     }
     
-    [HttpGet] //henter alle sager
+    [HttpGet] //henter alle sager (/api/case)
     public async Task<ActionResult<IEnumerable<Case>>> GetCases()
-    {
+    {  
+        //returnerer en liste af case (HTTP 200 (OK))
         return Ok(await _repository.GetAllCasesAsync());
     }
     
-    [HttpGet("{id}")] //henter en sag ud fra id
+    [HttpGet("{id}")] //henter en sag ud fra id (/api/case/{ID})
     public async Task<ActionResult<Case>> GetCase(Guid id)
     {
-        var caseItem = await _repository.GetCaseByIdAsync(id);
-        if (caseItem == null) return NotFound();
-        return caseItem;
+        var caseItem = await _repository.GetCaseByIdAsync(id); //finder case med det angivene ID
+        if (caseItem == null) return NotFound(); //returnere HTTP 404, hvis case ikke findes
+        return caseItem; //retunere en case
     }
     
-    [HttpPost] //opretter en ny sag
+    [HttpPost] //opretter en ny sag (/api/case)
     public async Task<ActionResult<Case>> PostCase(Case caseItem)
     {
         try
         {
+            //validerer input
             if (caseItem == null)
             {
                 return BadRequest(new { Message = "CaseItem kan ikke være null." });
             }
-    
+            //opdatere case og gemmer den i aatabasen
             var createdCase = await _repository.AddCaseAsync(caseItem);
+            //reutnere med HTTP 201 (Created) med de nye detaljer
             return CreatedAtAction("GetCase", new { id = createdCase.Id }, createdCase);
         }
         catch (Exception ex)
         {
+            //returnere HTTP 500 med fejl
             return StatusCode(500, new { Message = "En intern serverfejl opstod", Error = ex.Message });
         }
     }
     
-    [HttpPut("{id}")] // Opdater en sag
+    [HttpPut("{id}")] // Opdater en sag (/api/case/{id})
     public async Task<IActionResult> PutCase(Guid id, [FromBody] Case caseItem)
     {
         // 1. Hent den eksisterende sag
@@ -83,11 +87,14 @@ public class CaseController : ControllerBase
         });
     }
     
-    [HttpDelete("{id}")] //slette (med id)
+    [HttpDelete("{id}")] //slette (med id) (/api/case/{id})
     public async Task<IActionResult> DeleteCase(Guid id)
     {
+        //forsøger og slette case
         var success = await _repository.DeleteCaseAsync(id);
+        //retunere 404 hvis case ikke findes
         if (!success) return NotFound();
+        //returnere 204 hvis sletning var succesfuld
         return NoContent();
     }
     
