@@ -55,36 +55,35 @@ public class CaseController : ControllerBase
     [HttpPut("{id}")] // Opdater en sag (/api/case/{id})
     public async Task<IActionResult> PutCase(Guid id, [FromBody] Case caseItem)
     {
-        // 1. Hent den eksisterende sag
-        var existingCase = await _repository.GetCaseByIdAsync(id);
-
-        // 2. Hvis sagen ikke findes
-        if (existingCase == null)
-        {
-            return NotFound(new { Message = $"Sagen med ID {id} blev ikke fundet." });
-        }
-        // 3. Opdater kun de felter, der er angivet
-        existingCase.CustomerName = caseItem.CustomerName ?? existingCase.CustomerName;
-        existingCase.EquipmentType = caseItem.EquipmentType ?? existingCase.EquipmentType;
-        existingCase.ProblemDescription = caseItem.ProblemDescription ?? existingCase.ProblemDescription;
-        existingCase.ExpectedDeliveryDate = caseItem.ExpectedDeliveryDate != DateTime.MinValue ? caseItem.ExpectedDeliveryDate : existingCase.ExpectedDeliveryDate;
-        existingCase.Priority = caseItem.Priority ?? existingCase.Priority;
-        existingCase.AssignedTechnician = caseItem.AssignedTechnician ?? existingCase.AssignedTechnician;
-        existingCase.Status = caseItem.Status ?? existingCase.Status;
-
-        // 4. Opdater sagen i databasen
-        var success = await _repository.UpdateCaseAsync(existingCase);
-
-        if (!success)
-        {
-            return StatusCode(500, new { Message = "En fejl opstod under opdateringen af sagen." });
-        }
-        // 5. Returnér den opdaterede sag
-        return Ok(new
-        {
-            Message = "Sagen blev opdateret succesfuldt.",
-            UpdatedCase = existingCase
-        });
+       if (caseItem == null || string.IsNullOrEmpty(caseItem.Status))
+          {
+              return BadRequest(new { Message = "Status er påkrævet." });
+          }
+      
+          // Hent den eksisterende sag
+          var existingCase = await _repository.GetCaseByIdAsync(id);
+      
+          if (existingCase == null)
+          {
+              return NotFound(new { Message = $"Sagen med ID {id} blev ikke fundet." });
+          }
+      
+          // Kun opdater status
+          existingCase.Status = caseItem.Status;
+      
+          // Opdater sagen i databasen
+          var success = await _repository.UpdateCaseAsync(existingCase);
+      
+          if (!success)
+          {
+              return StatusCode(500, new { Message = "En fejl opstod under opdateringen af sagen." });
+          }
+      
+          return Ok(new
+          {
+              Message = "Sagen blev opdateret succesfuldt.",
+              UpdatedCase = existingCase
+          });
     }
     
     [HttpDelete("{id}")] //slette (med id) (/api/case/{id})
