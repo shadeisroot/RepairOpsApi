@@ -68,4 +68,10 @@ public class UserLogic : IUserLogic
 
         return user;
     }
+
+    public List<User> GetAllUsers()
+    {
+        return _userRepository.GetAllUsers();
+        
+    }
 }

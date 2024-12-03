@@ -87,4 +87,21 @@ public class UserController : ControllerBase
             return StatusCode(500, "An error occurred while logging in the user.");
         }
     }
+
+    [HttpGet("[action]")]
+    public IActionResult GetAllUsers()
+    {
+        try
+        {
+            //henter liste fra userlogic
+            var users = _userLogic.GetAllUsers();
+            //returnere listen som JSON
+            return Ok(users);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error occurred while getting all users.");
+            return StatusCode(500, "An error occurred while getting all users.");
+        }
+    }
 }

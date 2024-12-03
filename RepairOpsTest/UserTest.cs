@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -16,13 +17,16 @@ public class UserTest
     private Mock<ILogger<UserController>> _mockLogger;
     private Mock<IUserLogic> _mockUserLogic;
     private UserController _controller;
+    private Mock<IUserRepository> _mockRepository;
 
     [SetUp]
     public void Setup()
     {
+        _mockRepository = new Mock<IUserRepository>();
         _mockLogger = new Mock<ILogger<UserController>>();
         _mockUserLogic = new Mock<IUserLogic>();
         _controller = new UserController(_mockLogger.Object, _mockUserLogic.Object);
+        
     }
 
     [Test]
@@ -82,5 +86,30 @@ public class UserTest
 
         // Assert
         Assert.IsInstanceOf<UnauthorizedObjectResult>(result);
+    }
+    
+    [Test]
+    public async Task GetUsers_Returns_AllUsers()
+    {
+        //Arrange
+        var users = new List<User> 
+        {
+            new User { id = 1, username = "Teknikker1" },
+            new User { id = 2, username = "Teknikker2" },
+            new User { id = 3, username = "Teknikker3" } 
+        };
+        _mockUserLogic.Setup(logic => logic.GetAllUsers()).Returns(users);
+        
+        //Act
+        var result = _controller.GetAllUsers();
+        
+        //Assert
+        var okResult = result as OkObjectResult;
+        Assert.IsNotNull(okResult); // Resultatet skal være OK
+        var returnedUsers = okResult.Value as IEnumerable<User>;
+        Assert.IsNotNull(returnedUsers); // Sikrer, at det returnerede ikke er null
+        Assert.AreEqual(3, returnedUsers.Count()); // Antallet af brugere skal være 3
+        Assert.AreEqual("Teknikker1", returnedUsers.First().username); // Den første bruger er 'Teknikker1'
+        Assert.AreEqual("Teknikker3", returnedUsers.Last().username); // Den sidste bruger er 'Teknikker3'
     }
 }

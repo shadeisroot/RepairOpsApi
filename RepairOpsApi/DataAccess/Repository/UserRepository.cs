@@ -25,4 +25,9 @@ public class UserRepository : IUserRepository
         _context.Users.Add(user);
         _context.SaveChanges();
     }
+    
+    public List<User> GetAllUsers()
+    {
+        return _context.Users.ToList();
+    }
 }
