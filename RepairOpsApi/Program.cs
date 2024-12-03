@@ -19,6 +19,13 @@ public class Program
         // Add services to the container.
         builder.Services.AddControllers();
         builder.Services.AddAuthorization();
+        
+        var secretKey = builder.Configuration["Jwt:SecretKey"];
+        var issuer = builder.Configuration["Jwt:Issuer"];
+        var audience = builder.Configuration["Jwt:Audience"];
+
+        builder.Services.AddSingleton(new JwtHandler(secretKey, issuer, audience));
+
         builder.Services.AddDbContext<RepairOpsApiContext>(options =>
         {
             options.UseSqlServer(builder.Configuration.GetConnectionString("DBConnection"));

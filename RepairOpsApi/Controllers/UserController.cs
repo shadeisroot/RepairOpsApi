@@ -1,6 +1,8 @@
 using GreenFDFBookapi.Entities;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using RepairOpsApi.BusinessLogic.Interfaces;
+using RepairOpsApi.Helpers;
 
 namespace RepairOpsApi.Controllers;
 
@@ -11,11 +13,13 @@ public class UserController : ControllerBase
     
     private readonly ILogger<UserController> _logger;
     private readonly IUserLogic _userLogic;
+    private readonly JwtHandler _jwtHandler;
 
-    public UserController(ILogger<UserController> logger, IUserLogic userLogic)
+    public UserController(ILogger<UserController> logger, IUserLogic userLogic, JwtHandler jwtHandler)
     {
         _logger = logger;
         _userLogic = userLogic; 
+        _jwtHandler = jwtHandler;
     }
 
     
@@ -47,44 +51,43 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("[action]")]
-    public IActionResult LoginUser(string username, string password)
+    public IActionResult LoginUser([FromBody] LoginRequest loginRequest)
     {
-        
-        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+        if (string.IsNullOrWhiteSpace(loginRequest.username) || string.IsNullOrWhiteSpace(loginRequest.password))
         {
             return BadRequest("Username and password are required.");
         }
-        
+
         try
         {
-            var user = _userLogic.LoginUser(username, password);
-        
-            // Hvis login er succesfuldt, returner brugeroplysningerne
+            var user = _userLogic.LoginUser(loginRequest.username, loginRequest.password);
+
             if (user != null)
             {
-                // Opret et objekt med de nødvendige brugeroplysninger
+                if (_jwtHandler == null)
+                {
+                    _logger.LogError("JwtHandler is null.");
+                    return StatusCode(500, "Internal server error.");
+                }
+
+                var token = _jwtHandler.GenerateToken(user);
                 var userResponse = new
                 {
-                    userId = user.id, // Skift dette til det relevante felt i dit user-objekt
-                    username = user.username // Dette skal også være relevant
+                    userId = user.id,
+                    username = user.username,
+                    token = token
                 };
 
                 UserSession.getInstance(user);
-                return Ok(userResponse); // Returnér brugeroplysningerne som en JSON
+                return Ok(userResponse);
             }
             else
             {
                 return Unauthorized("Invalid username or password.");
             }
-        }
-        catch (ArgumentException ex)
+        }catch (Exception ex)
         {
-            return BadRequest(ex.Message);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error occurred while logging in the user.");
-            return StatusCode(500, "An error occurred while logging in the user.");
+            return Unauthorized("invalid username or password");
         }
     }
 
