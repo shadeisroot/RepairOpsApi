@@ -73,4 +73,39 @@ public class CaseTest
         Assert.AreEqual(newCase.Id, returnedCase.Id); //de to id matcher
     }
     
+    [Test]
+    public async Task DeleteCase_RemovesCase_WhenCaseExists()
+    {
+        // Arrange
+        var caseId = Guid.NewGuid();
+        var existingCase = new Case { Id = caseId, CustomerName = "Jacob" };
+
+        _mockRepository.Setup(repo => repo.GetCaseByIdAsync(caseId)).ReturnsAsync(existingCase); // Mock GetCaseByIdAsync
+        _mockRepository.Setup(repo => repo.DeleteCaseAsync(caseId)).ReturnsAsync(true); // Mock DeleteCaseAsync
+
+        // Act
+        var result = await _controller.DeleteCase(caseId);
+
+        // Assert
+        Assert.IsInstanceOf<NoContentResult>(result); // Sletningen skal returnere NoContent
+        _mockRepository.Verify(repo => repo.GetCaseByIdAsync(caseId), Times.Once); // Bekræft, at GetCaseByIdAsync blev kaldt
+        _mockRepository.Verify(repo => repo.DeleteCaseAsync(caseId), Times.Once);
+    }
+    
+    [Test]
+    public async Task DeleteCase_ReturnsNotFound_WhenCaseDoesNotExist()
+    {
+        // Arrange
+        var caseId = Guid.NewGuid();
+        _mockRepository.Setup(repo => repo.GetCaseByIdAsync(caseId)).ReturnsAsync((Case)null); // Mock returnerer null
+
+        // Act
+        var result = await _controller.DeleteCase(caseId);
+
+        // Assert
+        Assert.IsInstanceOf<NotFoundResult>(result); // Sørg for, at resultatet er NotFound
+        _mockRepository.Verify(repo => repo.GetCaseByIdAsync(caseId), Times.Once); // Bekræft, at GetCaseByIdAsync blev kaldt
+        _mockRepository.Verify(repo => repo.DeleteCaseAsync(It.IsAny<Guid>()), Times.Never);
+    }
+    
 }

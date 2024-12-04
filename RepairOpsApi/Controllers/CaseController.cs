@@ -89,12 +89,21 @@ public class CaseController : ControllerBase
     [HttpDelete("{id}")] //slette (med id) (/api/case/{id})
     public async Task<IActionResult> DeleteCase(Guid id)
     {
-        //forsøger og slette case
-        var success = await _repository.DeleteCaseAsync(id);
-        //retunere 404 hvis case ikke findes
-        if (!success) return NotFound();
-        //returnere 204 hvis sletning var succesfuld
-        return NoContent();
+        // Hent sagen først
+        var existingCase = await _repository.GetCaseByIdAsync(id);
+        if (existingCase == null)
+        {
+            return NotFound(); // Returner NotFound hvis sagen ikke eksisterer
+        }
+
+        // Slet sagen
+        var result = await _repository.DeleteCaseAsync(id);
+        if (!result)
+        {
+            return BadRequest(); // Hvis sletning fejler
+        }
+
+        return NoContent(); // Succesfuld sletning
     }
     
 }
