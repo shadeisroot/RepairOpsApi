@@ -52,12 +52,12 @@ public class CaseRepository : ICaseRepository
     //sletter en case fra databasen baseret på dens ID
     public async Task<bool> DeleteCaseAsync(Guid id)
     {
-        var caseItem = await _context.Cases.FindAsync(id); //finder en case
-        if (caseItem == null) return false; //returnere false hvis case ikke findes
+        var caseToDelete = await _context.Cases.FindAsync(id);
+        if (caseToDelete == null) return false;
 
-        _context.Cases.Remove(caseItem); //fjerner sag fra DBSet
-        await _context.SaveChangesAsync(); //gemmer ændring i databasen
-        return true; //returnere true hvis sletting sker
+        _context.Cases.Remove(caseToDelete);
+        await _context.SaveChangesAsync();
+        return true;
     }
 
 }
