@@ -9,6 +9,9 @@ public class RepairOpsApiContext : DbContext
     public DbSet<User> Users {get; set;}
     //database set for Case
     public DbSet<Case> Cases {get; set;}
+    //database set for Chat
+    public DbSet<Chat> Chats { get; set; }
+    
     public RepairOpsApiContext(DbContextOptions<RepairOpsApiContext> options) : base(options)
     {
         
