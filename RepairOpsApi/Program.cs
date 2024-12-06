@@ -5,6 +5,7 @@ using RepairOpsApi.BusinessLogic.Interfaces;
 using RepairOpsApi.DataAccess;
 using RepairOpsApi.DataAccess.Repository;
 using RepairOpsApi.DataAccess.Repository.Interfaces;
+using RepairOpsApi.Entities;
 using RepairOpsApi.Helpers;
 using RepairOpsApi.Helpers.Interfaces;
 
@@ -34,15 +35,18 @@ public class Program
         builder.Services.AddScoped<IUserLogic, UserLogic>();
         
         builder.Services.AddScoped<ICaseRepository, CaseRepository>();
-        
+        builder.Services.AddScoped<IChatRepository, ChatRepository>();
         builder.Services.AddScoped<IPasswordEncrypter, PasswordEncrypter>();
+        
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        
+        builder.Services.AddSignalR();
 
         var app = builder.Build();
-
+        
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
