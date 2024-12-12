@@ -14,7 +14,9 @@ public class Case
     public string Priority { get; set; }
     public string AssignedTechnician { get; set; }
     public string Status { get; set; }
-    public string? Mail {get; set; }
     
     public ICollection<ChatMessage> ChatMessages { get; set; } = new List<ChatMessage>();
+    
+    public ICollection<StatusHistory> StatusHistories { get; set; } = new List<StatusHistory>();
+    
 }

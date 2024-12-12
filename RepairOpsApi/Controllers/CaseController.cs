@@ -106,4 +106,17 @@ public class CaseController : ControllerBase
         return NoContent(); // Succesfuld sletning
     }
     
+    [HttpGet("{caseId}/status-history")]
+    public async Task<IActionResult> GetStatusHistory(Guid caseId)
+    {
+        // Hent status historik fra repository
+        var history = await _repository.GetStatusHistoryByCaseIdAsync(caseId);
+
+        if (history == null || !history.Any())
+        {
+            return NotFound(new { Message = "Ingen historik fundet for denne sag." });
+        }
+
+        return Ok(history);
+    }
 }

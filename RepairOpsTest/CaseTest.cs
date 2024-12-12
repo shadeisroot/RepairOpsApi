@@ -108,4 +108,45 @@ public class CaseTest
         _mockRepository.Verify(repo => repo.DeleteCaseAsync(It.IsAny<Guid>()), Times.Never);
     }
     
+    [Test]
+public async Task GetStatusHistory_ReturnsHistory_WhenHistoryExists()
+{
+    // Arrange
+    var caseId = Guid.NewGuid();
+    var statusHistory = new List<StatusHistory>
+    {
+        new StatusHistory { Id = Guid.NewGuid(), CaseId = caseId, OldStatus = "Modtaget", NewStatus = "Under reparation", ChangedAt = DateTime.UtcNow.AddDays(-1) },
+        new StatusHistory { Id = Guid.NewGuid(), CaseId = caseId, OldStatus = "Under reparation", NewStatus = "Afventer dele", ChangedAt = DateTime.UtcNow }
+    };
+
+    _mockRepository.Setup(repo => repo.GetStatusHistoryByCaseIdAsync(caseId)).ReturnsAsync(statusHistory);
+
+    // Act
+    var result = await _controller.GetStatusHistory(caseId);
+
+    // Assert
+    var okResult = result as OkObjectResult;
+    Assert.IsNotNull(okResult); // Resultatet skal være OK
+    var returnedHistory = okResult.Value as IEnumerable<StatusHistory>;
+    Assert.IsNotNull(returnedHistory); // Resultatet må ikke være null
+    Assert.AreEqual(2, returnedHistory.Count()); // Sørg for, at begge poster blev returneret
+    Assert.AreEqual("Modtaget", returnedHistory.First().OldStatus); // Den første statusændring
+    Assert.AreEqual("Afventer dele", returnedHistory.Last().NewStatus); // Den sidste statusændring
+}
+
+[Test]
+public async Task GetStatusHistory_ReturnsNotFound_WhenNoHistoryExists()
+{
+    // Arrange
+    var caseId = Guid.NewGuid();
+    _mockRepository.Setup(repo => repo.GetStatusHistoryByCaseIdAsync(caseId)).ReturnsAsync(new List<StatusHistory>());
+
+    // Act
+    var result = await _controller.GetStatusHistory(caseId);
+
+    // Assert
+    Assert.IsInstanceOf<NotFoundObjectResult>(result); // Sørg for, at resultatet er NotFound
+    _mockRepository.Verify(repo => repo.GetStatusHistoryByCaseIdAsync(caseId), Times.Once); // Bekræft, at metoden blev kaldt
+}
+
 }
