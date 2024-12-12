@@ -12,6 +12,8 @@ public class JwtHandler
     private readonly string _issuer;
     private readonly string _audience;
 
+    
+    //Sætter secretKey, issuer og audience til de værdier der er sat i Program.cs
     public JwtHandler(string secretKey, string issuer, string audience)
     {
         _secretKey = secretKey;
@@ -19,6 +21,7 @@ public class JwtHandler
         _audience = audience;
     }
 
+    //Genererer et token til brugeren
     public string GenerateToken(User user, int expireMinutes = 30)
     {
         var claims = new[]

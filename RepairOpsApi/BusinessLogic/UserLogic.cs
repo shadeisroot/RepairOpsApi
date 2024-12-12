@@ -16,6 +16,7 @@ public class UserLogic : IUserLogic
         _passwordEncrypter = passwordEncrypter;
     }
 
+    // Register a new user
     public User RegisterUser(string username, string password)
     {
         if (string.IsNullOrEmpty(username))
@@ -47,6 +48,7 @@ public class UserLogic : IUserLogic
 
         return user;
     }
+    // Login a user
     public User LoginUser(string username, string password)
     {
         if (string.IsNullOrEmpty(username))
@@ -69,6 +71,7 @@ public class UserLogic : IUserLogic
         return user;
     }
 
+    // Get all users
     public List<User> GetAllUsers()
     {
         return _userRepository.GetAllUsers();

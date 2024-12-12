@@ -22,7 +22,7 @@ public class UserController : ControllerBase
         _jwtHandler = jwtHandler;
     }
 
-    
+    //metode til at registrere en bruger
     [HttpPost("[action]")]
     public IActionResult RegisterUser(string username, string password, string confirmPassword )
     {
@@ -50,6 +50,7 @@ public class UserController : ControllerBase
         }
     }
 
+    //metode til at logge en bruger ind
     [HttpPost("[action]")]
     public IActionResult LoginUser([FromBody] LoginRequest loginRequest)
     {
@@ -91,6 +92,8 @@ public class UserController : ControllerBase
         }
     }
 
+    
+    //metode til at få alle users
     [HttpGet("[action]")]
     public IActionResult GetAllUsers()
     {
