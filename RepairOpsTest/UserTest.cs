@@ -7,6 +7,7 @@ using RepairOpsApi.Controllers;
 using RepairOpsApi.DataAccess.Repository.Interfaces;
 using RepairOpsApi.Entities;
 using RepairOpsApi.Helpers;
+using LoginRequest = RepairOpsApi.Helpers.LoginRequest;
 
 namespace RepairOpsTest;
 
@@ -18,6 +19,7 @@ public class UserTest
     private Mock<IUserLogic> _mockUserLogic;
     private UserController _controller;
     private Mock<IUserRepository> _mockRepository;
+    private Mock<JwtHandler> _mockJwtHandler;
 
     [SetUp]
     public void Setup()
@@ -25,7 +27,7 @@ public class UserTest
         _mockRepository = new Mock<IUserRepository>();
         _mockLogger = new Mock<ILogger<UserController>>();
         _mockUserLogic = new Mock<IUserLogic>();
-        _controller = new UserController(_mockLogger.Object, _mockUserLogic.Object);
+        _controller = new UserController(_mockLogger.Object, _mockUserLogic.Object, _mockJwtHandler.Object);
         
     }
 
@@ -63,7 +65,7 @@ public class UserTest
     public void LoginUser_ValidCredentials_ReturnsOk()
     {
         // Arrange
-        var loginRequest = new LoginRequest { username = "testuser", password = "password" };
+        var loginRequest = new LoginRequest() { username = "testuser", password = "password" };
         _mockUserLogic.Setup(x => x.LoginUser(It.IsAny<string>(), It.IsAny<string>()))
             .Returns(new User { id = 1, username = "testuser" });
 
@@ -78,7 +80,7 @@ public class UserTest
     public void LoginUser_InvalidCredentials_ReturnsUnauthorized()
     {
         // Arrange
-        var loginRequest = new LoginRequest { username = "testuser", password = "wrongpassword" };
+        var loginRequest = new LoginRequest() { username = "testuser", password = "wrongpassword" };
         _mockUserLogic.Setup(x => x.LoginUser(It.IsAny<string>(), It.IsAny<string>())).Returns((User)null);
 
         // Act
@@ -112,4 +114,8 @@ public class UserTest
         Assert.AreEqual("Teknikker1", returnedUsers.First().username); // Den første bruger er 'Teknikker1'
         Assert.AreEqual("Teknikker3", returnedUsers.Last().username); // Den sidste bruger er 'Teknikker3'
     }
+    
+    
+    
+    
 }
