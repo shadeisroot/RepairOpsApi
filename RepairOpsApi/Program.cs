@@ -37,6 +37,7 @@ public class Program
         builder.Services.AddScoped<ICaseRepository, CaseRepository>();
         builder.Services.AddScoped<IChatRepository, ChatRepository>();
         builder.Services.AddScoped<IPasswordEncrypter, PasswordEncrypter>();
+        builder.Services.AddScoped<INotesRepository, NotesRepository>();
         
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
