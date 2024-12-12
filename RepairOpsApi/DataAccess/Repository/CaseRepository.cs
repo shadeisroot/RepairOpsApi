@@ -32,21 +32,48 @@ public class CaseRepository : ICaseRepository
     //opdatere en allerede lavet case i databasen
     public async Task<bool> UpdateCaseAsync(Case caseItem)
     {
-        _context.Entry(caseItem).State = EntityState.Modified; //marker case som ændret
+        // Find den eksisterende sag i databasen
+        var existingCase = await _context.Cases.AsNoTracking().FirstOrDefaultAsync(c => c.Id == caseItem.Id);
+
+        if (existingCase == null)
+        {
+            return false; // Sagen blev ikke fundet
+        }
+
+        // Tjek, om status er ændret
+        if (existingCase.Status != caseItem.Status)
+        {
+            // Opret en historikpost for statusændringen
+            var statusHistory = new StatusHistory
+            {
+                CaseId = caseItem.Id,
+                OldStatus = existingCase.Status,
+                NewStatus = caseItem.Status,
+                ChangedAt = DateTime.UtcNow
+            };
+
+            // Tilføj historikken til databasen
+            _context.StatusHistories.Add(statusHistory);
+        }
+
+        // Marker sagen som ændret
+        _context.Entry(caseItem).State = EntityState.Modified;
+
         try
         {
-            await _context.SaveChangesAsync(); //gemmer ændring i database
-            return true; //returnere true hvis det lykkes og opdatere
+            // Gem ændringerne i databasen
+            await _context.SaveChangesAsync();
+            return true;
         }
-        catch (DbUpdateConcurrencyException) //håndtere en fejl i database hvis rækken som ændres ikke matcher med det som der forventes
+        catch (DbUpdateConcurrencyException)
         {
-            //tjekker om case stadig eksisterer 
+            // Tjek, om sagen stadig eksisterer
             if (!await _context.Cases.AnyAsync(e => e.Id == caseItem.Id))
             {
-                return false; //returnere false hvis den ikke findes 
+                return false; // Sagen blev ikke fundet
             }
 
-            throw;
+            throw; // Genkast fejlen, hvis det ikke var en "sletning"
         }
     }
     //sletter en case fra databasen baseret på dens ID
@@ -58,6 +85,14 @@ public class CaseRepository : ICaseRepository
         _context.Cases.Remove(caseToDelete);
         await _context.SaveChangesAsync();
         return true;
+    }
+    
+    public async Task<IEnumerable<StatusHistory>> GetStatusHistoryByCaseIdAsync(Guid caseId)
+    {
+        return await _context.StatusHistories
+            .Where(h => h.CaseId == caseId)
+            .OrderBy(h => h.ChangedAt)
+            .ToListAsync();
     }
 
 }
