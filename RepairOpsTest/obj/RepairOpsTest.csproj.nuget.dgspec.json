@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/shadeisroot/RiderProjects/RepairOpsApi/RepairOpsTest/RepairOpsTest.csproj": {}
+    "C:\\Users\\denni\\RiderProjects\\RepairOpsApi\\RepairOpsTest\\RepairOpsTest.csproj": {}
   },
   "projects": {
-    "/Users/shadeisroot/RiderProjects/RepairOpsApi/RepairOpsApi/RepairOpsApi.csproj": {
+    "C:\\Users\\denni\\RiderProjects\\RepairOpsApi\\RepairOpsApi\\RepairOpsApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/shadeisroot/RiderProjects/RepairOpsApi/RepairOpsApi/RepairOpsApi.csproj",
+        "projectUniqueName": "C:\\Users\\denni\\RiderProjects\\RepairOpsApi\\RepairOpsApi\\RepairOpsApi.csproj",
         "projectName": "RepairOpsApi",
-        "projectPath": "/Users/shadeisroot/RiderProjects/RepairOpsApi/RepairOpsApi/RepairOpsApi.csproj",
-        "packagesPath": "/Users/shadeisroot/.nuget/packages/",
-        "outputPath": "/Users/shadeisroot/RiderProjects/RepairOpsApi/RepairOpsApi/obj/",
+        "projectPath": "C:\\Users\\denni\\RiderProjects\\RepairOpsApi\\RepairOpsApi\\RepairOpsApi.csproj",
+        "packagesPath": "C:\\Users\\denni\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\denni\\RiderProjects\\RepairOpsApi\\RepairOpsApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/shadeisroot/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\denni\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -89,21 +89,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Users\\denni\\.dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/shadeisroot/RiderProjects/RepairOpsApi/RepairOpsTest/RepairOpsTest.csproj": {
+    "C:\\Users\\denni\\RiderProjects\\RepairOpsApi\\RepairOpsTest\\RepairOpsTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/shadeisroot/RiderProjects/RepairOpsApi/RepairOpsTest/RepairOpsTest.csproj",
+        "projectUniqueName": "C:\\Users\\denni\\RiderProjects\\RepairOpsApi\\RepairOpsTest\\RepairOpsTest.csproj",
         "projectName": "RepairOpsTest",
-        "projectPath": "/Users/shadeisroot/RiderProjects/RepairOpsApi/RepairOpsTest/RepairOpsTest.csproj",
-        "packagesPath": "/Users/shadeisroot/.nuget/packages/",
-        "outputPath": "/Users/shadeisroot/RiderProjects/RepairOpsApi/RepairOpsTest/obj/",
+        "projectPath": "C:\\Users\\denni\\RiderProjects\\RepairOpsApi\\RepairOpsTest\\RepairOpsTest.csproj",
+        "packagesPath": "C:\\Users\\denni\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\denni\\RiderProjects\\RepairOpsApi\\RepairOpsTest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/shadeisroot/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\denni\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -115,8 +115,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/shadeisroot/RiderProjects/RepairOpsApi/RepairOpsApi/RepairOpsApi.csproj": {
-                "projectPath": "/Users/shadeisroot/RiderProjects/RepairOpsApi/RepairOpsApi/RepairOpsApi.csproj"
+              "C:\\Users\\denni\\RiderProjects\\RepairOpsApi\\RepairOpsApi\\RepairOpsApi.csproj": {
+                "projectPath": "C:\\Users\\denni\\RiderProjects\\RepairOpsApi\\RepairOpsApi\\RepairOpsApi.csproj"
               }
             }
           }
@@ -191,7 +191,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Users\\denni\\.dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
