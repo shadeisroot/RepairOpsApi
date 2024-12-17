@@ -17,6 +17,7 @@ public class Case
     
     public ICollection<ChatMessage> ChatMessages { get; set; } = new List<ChatMessage>();
     
+    public ICollection<Notes> Notes { get; set; } = new List<Notes>();
     public ICollection<StatusHistory> StatusHistories { get; set; } = new List<StatusHistory>();
     
 }

@@ -79,10 +79,18 @@ public class CaseRepository : ICaseRepository
     //sletter en case fra databasen baseret på dens ID
     public async Task<bool> DeleteCaseAsync(Guid id)
     {
-        var caseToDelete = await _context.Cases.FindAsync(id);
-        if (caseToDelete == null) return false;
+        var caseItem = await _context.Cases
+            .Include(c => c.ChatMessages)
+            .Include(c => c.Notes)
+            .Include(c => c.StatusHistories)
+            .FirstOrDefaultAsync(c => c.Id == id);
 
-        _context.Cases.Remove(caseToDelete);
+        if (caseItem == null)
+        {
+            return false;
+        }
+
+        _context.Cases.Remove(caseItem);
         await _context.SaveChangesAsync();
         return true;
     }
