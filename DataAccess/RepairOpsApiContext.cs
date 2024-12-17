@@ -11,8 +11,11 @@ public class RepairOpsApiContext : DbContext
     public DbSet<Case> Cases {get; set;}
     //database set for Chat
     public DbSet<ChatMessage> ChatMessages {get; set;}
-
+    
+    public DbSet<Notes> Notes { get; set; }
+    
     public DbSet<StatusHistory> StatusHistories { get; set; }
+
     public RepairOpsApiContext(DbContextOptions<RepairOpsApiContext> options) : base(options)
     {
         
