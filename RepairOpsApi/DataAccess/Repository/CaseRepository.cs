@@ -28,6 +28,7 @@ public class CaseRepository : ICaseRepository
         _context.Cases.Add(caseItem); //tilføjer case til DBSet
         await _context.SaveChangesAsync(); //gemmer ændring i database
         return caseItem; //returnere den nye case
+        
     }
     //opdatere en allerede lavet case i databasen
     public async Task<bool> UpdateCaseAsync(Case caseItem)
