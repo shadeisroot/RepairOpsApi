@@ -11,5 +11,4 @@ public class StatusHistory
     public string NewStatus { get; set; }
     public DateTime ChangedAt { get; set; } = DateTime.UtcNow;
 
-    public Case Case { get; set; } 
 }

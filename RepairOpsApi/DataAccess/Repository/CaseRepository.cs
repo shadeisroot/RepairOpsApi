@@ -80,12 +80,27 @@ public class CaseRepository : ICaseRepository
     //sletter en case fra databasen baseret på dens ID
     public async Task<bool> DeleteCaseAsync(Guid id)
     {
-        var caseToDelete = await _context.Cases.FindAsync(id);
-        if (caseToDelete == null) return false;
+        using var transaction = await _context.Database.BeginTransactionAsync();
+        try
+        {
+            var caseToDelete = await _context.Cases.FindAsync(id);
+            if (caseToDelete == null) return false;
 
-        _context.Cases.Remove(caseToDelete);
-        await _context.SaveChangesAsync();
-        return true;
+            // Find and delete related notes
+            var notesToDelete = await _context.Notes.Where(n => n.CaseId == id).ToListAsync();
+            _context.Notes.RemoveRange(notesToDelete);
+
+            _context.Cases.Remove(caseToDelete);
+            await _context.SaveChangesAsync();
+
+            await transaction.CommitAsync();
+            return true;
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }
     }
     
     public async Task<IEnumerable<StatusHistory>> GetStatusHistoryByCaseIdAsync(Guid caseId)

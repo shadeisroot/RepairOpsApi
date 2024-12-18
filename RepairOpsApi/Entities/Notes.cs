@@ -6,6 +6,7 @@ public class Notes
     public Guid CaseId { get; set; } 
     public string Message { get; set; } 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow; 
+    public Case Case { get; set; } // Navigation property
 
 
 }

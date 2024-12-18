@@ -5310,19 +5310,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\damer\\.nuget\\packages\\": {}
+    "/Users/shadeisroot/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\damer\\Documents\\GitHub\\RepairOpsApi\\RepairOpsApi\\RepairOpsApi.csproj",
+      "projectUniqueName": "/Users/shadeisroot/RiderProjects/RepairOpsApi/RepairOpsApi/RepairOpsApi.csproj",
       "projectName": "RepairOpsApi",
-      "projectPath": "C:\\Users\\damer\\Documents\\GitHub\\RepairOpsApi\\RepairOpsApi\\RepairOpsApi.csproj",
-      "packagesPath": "C:\\Users\\damer\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\damer\\Documents\\GitHub\\RepairOpsApi\\RepairOpsApi\\obj\\",
+      "projectPath": "/Users/shadeisroot/RiderProjects/RepairOpsApi/RepairOpsApi/RepairOpsApi.csproj",
+      "packagesPath": "/Users/shadeisroot/.nuget/packages/",
+      "outputPath": "/Users/shadeisroot/RiderProjects/RepairOpsApi/RepairOpsApi/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\damer\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/shadeisroot/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -5397,7 +5397,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

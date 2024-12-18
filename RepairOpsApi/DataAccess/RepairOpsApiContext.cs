@@ -21,4 +21,14 @@ public class RepairOpsApiContext : DbContext
         
     }
     
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Notes>()
+            .HasOne(n => n.Case)
+            .WithMany(c => c.Notes)
+            .HasForeignKey(n => n.CaseId)
+            .OnDelete(DeleteBehavior.Cascade);
+    }
 }
